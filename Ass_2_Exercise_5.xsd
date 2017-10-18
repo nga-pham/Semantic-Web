@@ -6,24 +6,24 @@
 	<xs:group name="UIBK information system">
 		<xs:element name="teacher">
 			<xs:complexType name="teacher">
-				<xs:attribute name="teacherId">
-					<xs:restriction>
+				<xs:attribute name="teacherId" type="xs:string">
+					<xs:restriction base="xs:string">
 						<xs:minLength Value="0"/>
 						<xs:maxLength Value="10"/>
 					</xs:restriction>
 				</xs:attribute>
 				<xs:sequence>
-					<xs:element name="position">
+					<xs:element name="position" type="xs:enumeration">
 						<xs:pattern value="assistant|assistant professor|full professor"/>
 					</xs:element>
 					<xs:element name="firstName" type="xs:string">
-						<xs:restriction>
+						<xs:restriction base="xs:string">
 							<xs:minLength Value="0"/>
 							<xs:maxLength Value="10"/>
 						</xs:restriction>
 					</xs:element>
 					<xs:element name="lastName" type="xs:string">
-						<xs:restriction>
+						<xs:restriction base="xs:string">
 							<xs:minLength Value="0"/>
 							<xs:maxLength Value="12"/>
 						</xs:restriction>
@@ -34,13 +34,13 @@
 							<xs:pattern value=".{10}"/>
 						</xs:restriction>
 					</xs:element>
-					<xs:element name="EmailAddress">
+					<xs:element name="EmailAddress" type="xs:string">
 						<xs:restriction base="xs:token">
 							<xs:pattern value="([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+.+[a-zA-Z]{2,9})"/>
 						</xs:restriction>
 					</xs:element>
-					<xs:element name="teach course" type="xs:string">
-						<xs:restriction>
+					<xs:element name="teachingCourse" type="xs:int">
+						<xs:restriction base="xs:int">
 							<xs:maxInclusive value="3"/>
 						</xs:restriction>
 					</xs:element>
@@ -49,53 +49,55 @@
 		</xs:element>
 		<xs:element name="course" type="xs:string">
 			<xs:complexType>
-				<xs:attribute name="courseId">
-					<xs:restriction base="xs:int">
-						<xs:pattern value="8"/>
+				<xs:attribute name="courseId" type="xs:numerical">
+					<xs:restriction base="xs:numerical">
+						<xs:pattern value=".{8}"/>
 					</xs:restriction>
 				</xs:attribute>
 				<xs:sequence>
 					<xs:element name="courseName" type="xs:string">
-						<xs:restriction>
+						<xs:restriction base="xs:string">
 							<xs:maxLength Value="15"/>
 						</xs:restriction>
 					</xs:element>
-					<xs:element name="courseTrack" type="xs:string">
-						<xs:restriction>
+					<xs:element name="courseTrack" type="xs:enumeration">
+						<xs:restriction base="xs:enumeration">
 							<xs:enumeration value="Bachelor|Master|Doctoral"/>
 						</xs:restriction>
 					</xs:element>
 					<xs:element name="Curriculum">
-						<xs:element name="curriculimName" type="xs:string">
-							<xs:restriction>
-								<xs:maxLength value="20"/>
-							</xs:restriction>
-						</xs:element>
-						<xs:element name="listOfCourse">
-							<xs:restriction base="xs:int">
-								<xs:minExclusive value="2"/>
-								<xs:maxExclusive value="10"/>
-							</xs:restriction>
-						</xs:element>
+						<xs:complexType>
+							<xs:element name="curriculumName" type="xs:string">
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:element>
+							<xs:element name="listOfCourse" type="xs:int">
+								<xs:restriction base="xs:int">
+									<xs:minExclusive value="2"/>
+									<xs:maxExclusive value="9"/>
+								</xs:restriction>
+							</xs:element>
+						</xs:complexType>
 					</xs:element>
 				</xs:sequence>
 			</xs:complexType>
 		</xs:element>
 		<xs:element name="student" type="xs:string">
 			<xs:complexType>
-				<xs:attribute name="studentId">
-					<xs:restriction base="xs:int">
+				<xs:attribute name="studentId" type="xs:string">
+					<xs:restriction base="xs:string">
 						<xs:maxLength Value="10"/>
 					</xs:restriction>
 				</xs:attribute>
 				<xs:sequence>
 					<xs:element name="firstName" type="xs:string">
-						<xs:restriction>
+						<xs:restriction base="xs:string">
 							<xs:maxLength value="10"/>
 						</xs:restriction>
 					</xs:element>
 					<xs:element name="lastName" type="xs:string">
-						<xs:restriction>
+						<xs:restriction base="xs:string">
 							<xs:maxLength value="12"/>
 						</xs:restriction>
 					</xs:element>
@@ -105,32 +107,34 @@
 							<xs:pattern value=".{10}"/>
 						</xs:restriction>
 					</xs:element>
-					<xs:element name="address" type="xs:string">
-						<xs:element name="street" type="xs:string">
-							<xs:restriction>
-								<xs:maxLength value="30"/>
-							</xs:restriction>
-						</xs:element>
-						<xs:element name="streetNumber" type="xs:string">
-							<xs:restriction base="xs:decimal">
-								<xs:maxLength value="0"/>
-							</xs:restriction>
-						</xs:element>
-						<xs:element name="postCode" type="xs:decimal">
-							<xs:restriction>
-								<xs:length value="4"/>
-							</xs:restriction>
-						</xs:element>
-						<xs:element name="city" type="xs:string">
-							<xs:restriction>
-								<xs:maxLength value="15"/>
-							</xs:restriction>
-						</xs:element>
-						<xs:element name="attending courses" type="xs:string">
-							<xs:restriction>
-								<xs:maxInclusive value="5"/>
-							</xs:restriction>
-						</xs:element>
+					<xs:element name="address">
+						<xs:complexType>
+							<xs:element name="street" type="xs:string">
+								<xs:restriction>
+									<xs:maxLength value="30"/>
+								</xs:restriction>
+							</xs:element>
+							<xs:element name="streetNumber" type="xs:number">
+								<xs:restriction base="xs:number">
+									<xs:maxLength value="0"/>
+								</xs:restriction>
+							</xs:element>
+							<xs:element name="postCode" type="xs:number">
+								<xs:restriction base="xs:number">
+									<xs:pattern value=".{4}"/>
+								</xs:restriction>
+							</xs:element>
+							<xs:element name="city" type="xs:string">
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="15"/>
+								</xs:restriction>
+							</xs:element>
+							<xs:element name="attendingCourses" type="xs:int">
+								<xs:restriction base="xs:int">
+									<xs:maxInclusive value="5"/>
+								</xs:restriction>
+							</xs:element>
+						</xs:complexType>
 					</xs:element>
 				</xs:sequence>
 			</xs:complexType>
