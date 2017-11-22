@@ -1,0 +1,68 @@
+{  
+     "@context": "http://schema.org",
+     "@type": "Hotel",
+     "name": "Hotel Innsbruck",
+     "description": "Tyrol in the center - luxurious living",
+      "url": "www.hotelinnsbruck.com",
+       "address": {
+                   "@type": "PostalAddress",
+                     "addressLocality": "Innsbruck",
+"addressRegion": "Tyrol",
+"postalCode": "6020",
+                      "streetAddress": "Innrain 3"
+     },
+"telephone": "00 43 512 59 86 80",
+"starRating": { "@type": "Rating", "ratingValue" : "4"},
+"image": "https://cst-media3.viomassl.com/3940/197482/960x540s",
+"room" :
+{
+"@type" : "HotelRoom",
+"name" : "Double Room Deluxe Tyrol",
+"description": "Tyrolin the center",
+"floorSize" : {
+"@type" : "QuantitativeValue" ,
+"minValue" : "22" ,
+"maxValue" : "28",
+"unitCode" : "MTK"
+},
+"occupancy" : {
+"@type" : "QuantitativeValue" ,
+"value" : "2" ,
+"unitCode" : "IE "
+}
+} ,
+ "Offer": {
+"@type" : "Offer" ,
+"priceRange" : {
+"@type" : "UnitPriceSpecification" ,
+"minPrice" : "64:00" ,
+"maxPrice" : "94,50",
+"priceCurrency" : "EUR" ,
+"unitCode" : "IE"
+}
+},
+"amenityFeature": [
+           {
+               "@type": "LocationFeatureSpecification",
+               "name": "free wifi",
+                   "value": "true"},
+{"@type": "LocationFeatureSpecification",
+"name": "Air conditioning, central heating",
+"value": "true"},
+{"@type": "LocationFeatureSpecification",
+"name": "Flat-Screen TV",
+"value": "true"},
+{"@type": "LocationFeatureSpecification",
+"name": "2 bathrobes with slippers",
+"value": "true"},
+{"@type": "LocationFeatureSpecification",
+"name": "Phone",
+"value": "true"},
+{"@type": "LocationFeatureSpecification",
+"name": "Wardrobe with full length mirror",
+"value": "true"},
+{"@type": "LocationFeatureSpecification",
+"name": "Flat-Screen TV",
+"value": "true"}
+]
+}
