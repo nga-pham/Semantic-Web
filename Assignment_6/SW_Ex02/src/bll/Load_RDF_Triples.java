@@ -3,30 +3,11 @@ package bll;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.ReadWrite;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.riot.RDFLanguages;
-import org.apache.jena.riot.RDFParser;
-import org.apache.jena.riot.RDFParserBuilder;
-import org.apache.jena.riot.system.ErrorHandlerFactory;
-import org.apache.jena.riot.system.StreamRDF;
-import org.apache.jena.sparql.core.Quad;
 import org.apache.jena.tdb.TDBFactory;
 import org.apache.jena.util.FileManager;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.lang.String;
-import java.net.URLEncoder;
 
 
 
@@ -39,14 +20,14 @@ public class Load_RDF_Triples {
 	private static final String SUCCESS_LOG_MESSAGE = "Load annotation successfully";
 	private static final String ERROR_LOG_MESSAGE = "Cannot load annotation";
 	private static final String ERROR_QUERY_MESSAGE = "Cannot perfom query";
-	
+
 	private static void executeQuery(Dataset dataset, String query) {
 		try(QueryExecution qExec = QueryExecutionFactory.create(query, dataset)) {
 			ResultSet rs = qExec.execSelect();
 			ResultSetFormatter.out(rs) ;
 			dataset.commit();
 		} catch (Exception e) {
-			System.out.println(ERROR_LOG_MESSAGE + e.getMessage().toString());
+			System.out.println(ERROR_QUERY_MESSAGE + e.getMessage().toString());
 		} 
 	}
 
@@ -64,14 +45,18 @@ public class Load_RDF_Triples {
 
 			// read the input file
 			FileManager.get().readModel( tdb, FILE_NAME);
-			
+
 			tdb.close();
 			System.out.println(SUCCESS_LOG_MESSAGE);
 
-
-			/*
+		} catch (Exception e) {
+			System.out.println(ERROR_LOG_MESSAGE + e.getMessage().toString());
+		}
+		/*
+		try {
+			
 			 * Begin transaction
-			 * */
+			 * 
 
 			dataset.begin(ReadWrite.READ);
 
@@ -106,7 +91,7 @@ public class Load_RDF_Triples {
 			executeQuery(dataset, query);
 
 			// 4. Return the name and optionally the description of all events all events that start after
-            // 01.12.2017.
+			// 01.12.2017.
 			query = "PREFIX sc: <http://schema.org/>\n" + 
 					"SELECT ?name, ?desc\n" + 
 					"WHERE\n" + 
@@ -123,7 +108,7 @@ public class Load_RDF_Triples {
 			executeQuery(dataset, query);
 
 			// 5. Return the names of all LocalBusinesses that are open on Sunday and optionally their
-            // opening and closing hours
+			// opening and closing hours
 			query = "PREFIX sc: <http://schema.org/>\n" + 
 					"SELECT ?name, ?openingDate, ?openingDate, ?openinghour, ?closinghour\n" + 
 					"WHERE\n" + 
@@ -149,10 +134,10 @@ public class Load_RDF_Triples {
 			// finish
 			dataset.close();
 			dataset.end();
-			
+
 		} catch (Exception e) {
 			System.out.println(ERROR_QUERY_MESSAGE + e.getMessage().toString());
-		}
+		}*/
 	}
 
 }
