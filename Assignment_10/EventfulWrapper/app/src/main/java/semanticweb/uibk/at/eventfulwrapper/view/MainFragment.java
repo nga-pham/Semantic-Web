@@ -1,7 +1,6 @@
 package semanticweb.uibk.at.eventfulwrapper.view;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -11,18 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import semanticweb.uibk.at.eventfulwrapper.R;
-import semanticweb.uibk.at.eventfulwrapper.control.AppController;
+import semanticweb.uibk.at.eventfulwrapper.model.EntryPoint;
+import semanticweb.uibk.at.eventfulwrapper.model.SearchAction;
 
 /**
  * Created by ngapham on 26.01.18.
@@ -36,10 +29,10 @@ public class MainFragment extends Fragment {
 
     // Output information
     JSONObject jsonObj;
-    String result_event;
+    String annotated_Json_string;
 
     // Widgets
-    Button btnSearch;
+    Button btnAnnotate;
     EditText edtKeyword, edtLocation;
     TextView txtTest;
 
@@ -65,14 +58,33 @@ public class MainFragment extends Fragment {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
+
+
     private void onClickButton() {
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        btnAnnotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Annotate the Search functionality
+                String keyword = edtKeyword.getText().toString();
+                String location = edtLocation.getText().toString();
                 String url = URL + "app_key=" + APP_KEY +
+                        "&keywords=" + keyword +
+                        "&location=" + location.replaceAll(" ", "+");
+                // Create new SearchAction
+                EntryPoint searchEntryPoint = new EntryPoint();
+                searchEntryPoint.setUrlTemplate(url);
+                SearchAction searchAction = new SearchAction();
+                searchAction.setTarget(searchEntryPoint);
+                searchAction.setKeyword(keyword);
+                searchAction.setLocation(location.toUpperCase());
+                // Print it
+                annotated_Json_string = searchAction.toString();
+                txtTest.setText(annotated_Json_string);
+
+                /*String url = URL + "app_key=" + APP_KEY +
                                 "&keywords=" + edtKeyword.getText().toString() +
                                 "&location=" + edtLocation.getText().toString();
-                Toast.makeText(getActivity().getApplicationContext(), url, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity().getApplicationContext(), url, Toast.LENGTH_LONG).show();
 
                 JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -80,31 +92,33 @@ public class MainFragment extends Fragment {
                         // Parsing json object response
                         // response will be a json object
 
+
                         try {
                             jsonObj = (JSONObject) response.getJSONObject("events");
-                            result_event = jsonObj.getString("event");
+                            annotated_Json_string = jsonObj.getString("event");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            result_event = "ERROR";
+                            annotated_Json_string = "ERROR";
                         }
 
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        result_event = "ERROR";
+                        annotated_Json_string = "ERROR";
                     }
                 });
 
                 // Adding request to request queue
                 AppController.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsonObjReq);
-
-                txtTest.setText(result_event);
-
+*/
                 // Transfer data to new fragment with bundle
-                Bundle args = new Bundle();
-                args.putString("result", result_event);
+//                Bundle args = new Bundle();
+//                String TAG = "result";
+//                args.putString(TAG, annotated_Json_string);
+//                String test = args.getString(TAG);
+//                txtTest.setText(test);
 
 //                RecognizeFragment recogFrament = new RecognizeFragment();
 //                recogFrament.setArguments(args);
@@ -113,16 +127,18 @@ public class MainFragment extends Fragment {
 //                fTransaction.addToBackStack(null);
 //                fTransaction.replace(R.id.main_container, recogFrament);
 //                fTransaction.commit();
+
+
             }
         });
     }
 
     private void initControls(View v) {
-        btnSearch = (Button) v.findViewById(R.id.btnSearch);
+        btnAnnotate = (Button) v.findViewById(R.id.btnAnnotate);
         edtKeyword = (EditText) v.findViewById(R.id.edtKeyword);
         edtLocation = (EditText) v.findViewById(R.id.edtLocation);
-        txtTest = (TextView) v.findViewById(R.id.txtTest);
+        txtTest = (TextView) v.findViewById(R.id.txtAnnotatedText);
 
-        result_event = new String();
+        annotated_Json_string = new String();
     }
 }

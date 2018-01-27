@@ -27,13 +27,15 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'*/
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     // consume a REST Web Service and parse JSON result using Volley API
-    compile 'com.android.volley:volley:1.0.0'
+    implementation 'com.android.volley:volley:1.0.0'
     // https://mvnrepository.com/artifact/javax.json/javax.json-api
-    compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
-    testCompile 'junit:junit:4.12'
+//    implementation group: 'javax.json', name: 'javax.json-api', version: '1.0'
+    // https://mvnrepository.com/artifact/org.glassfish/javax.json
+    implementation group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
+    testImplementation 'junit:junit:4.12'
 }

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Title or Keyword"
+            android:hint="Keyword or Title"
             android:inputType="text|textPersonName" />
 
         <EditText
@@ -28,18 +28,18 @@
             android:inputType="text|textPersonName" />
 
         <Button
-            android:id="@+id/btnSearch"
+            android:id="@+id/btnAnnotate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search" />
+            android:text="Annotate" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/txtTest"
+        android:id="@+id/txtAnnotatedText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Result testing" />
+        android:text="Annotation describing Search Functionality" />
 
 </LinearLayout>
