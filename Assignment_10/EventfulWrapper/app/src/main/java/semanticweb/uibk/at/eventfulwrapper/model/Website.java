@@ -39,7 +39,7 @@ public class Website extends CreativeWork {
     public String getUrl() {
         return url;
     }
-    
+
     public List<Action> getPotentialAction() {
         return potentialAction;
     }

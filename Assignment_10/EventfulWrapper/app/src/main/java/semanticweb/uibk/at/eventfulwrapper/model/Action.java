@@ -36,7 +36,7 @@ public class Action extends Thing {
     }
 
     // Convert into JSON Object
-    public JsonObject convertToJSON()
+    public JsonObject convertToJsonObject()
     {
         JsonObject jsonAction = Json.createObjectBuilder()
             .add(TYPE_LABEL, TYPE_NAME)
@@ -47,6 +47,6 @@ public class Action extends Thing {
     // print
     @Override
     public String toString() {
-        return convertToJSON().toString();
+        return convertToJsonObject().toString();
     }
 }

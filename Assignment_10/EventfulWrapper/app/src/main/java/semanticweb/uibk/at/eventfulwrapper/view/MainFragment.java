@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +13,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.evdb.javaapi.APIConfiguration;
+import com.evdb.javaapi.EVDBAPIException;
+import com.evdb.javaapi.EVDBRuntimeException;
+import com.evdb.javaapi.data.SearchResult;
+import com.evdb.javaapi.data.request.EventSearchRequest;
+import com.evdb.javaapi.operations.EventOperations;
+
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import semanticweb.uibk.at.eventfulwrapper.R;
+import semanticweb.uibk.at.eventfulwrapper.control.Eventful;
+import semanticweb.uibk.at.eventfulwrapper.control.EventfulImpl;
+import semanticweb.uibk.at.eventfulwrapper.control.HttpClient;
+import semanticweb.uibk.at.eventfulwrapper.control.HttpClientImpl;
 import semanticweb.uibk.at.eventfulwrapper.model.EntryPoint;
 import semanticweb.uibk.at.eventfulwrapper.model.SearchAction;
+import semanticweb.uibk.at.eventfulwrapper.utils.Authentication;
+import semanticweb.uibk.at.eventfulwrapper.utils.EndpointBaseType;
+import semanticweb.uibk.at.eventfulwrapper.utils.OAuthConfig;
 
 /**
- * Created by ngapham on 26.01.18.
+ * Created by ngapham on 27.01.18.
  */
 
 public class MainFragment extends Fragment {
@@ -33,8 +54,12 @@ public class MainFragment extends Fragment {
 
     // Widgets
     Button btnAnnotate;
-    EditText edtKeyword, edtLocation;
+    Button btnSearch;
+    EditText edtKeyword, edtLocation, edtCategory, edtLanguage;
     TextView txtTest;
+
+    HttpClient client = new HttpClientImpl();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,15 +74,10 @@ public class MainFragment extends Fragment {
         initControls(rootView);
         onClickButton();
 
+
+
         return rootView;
     }
-
-    ////////////////////check internet connection
-    public boolean isNetworkAvailable(final Context context) {
-        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
-
 
 
     private void onClickButton() {
@@ -77,9 +97,11 @@ public class MainFragment extends Fragment {
                 searchAction.setTarget(searchEntryPoint);
                 searchAction.setKeyword(keyword);
                 searchAction.setLocation(location.toUpperCase());
-                // Print it
+                // Annotate it
                 annotated_Json_string = searchAction.toString();
-                txtTest.setText(annotated_Json_string);
+
+
+//                txtTest.setText(annotated_Json_string);
 
                 /*String url = URL + "app_key=" + APP_KEY +
                                 "&keywords=" + edtKeyword.getText().toString() +
@@ -120,7 +142,7 @@ public class MainFragment extends Fragment {
 //                String test = args.getString(TAG);
 //                txtTest.setText(test);
 
-//                RecognizeFragment recogFrament = new RecognizeFragment();
+//                SearchResultFragment recogFrament = new SearchResultFragment();
 //                recogFrament.setArguments(args);
 //
 //                FragmentTransaction fTransaction = getActivity().getFragmentManager().beginTransaction();
@@ -134,10 +156,15 @@ public class MainFragment extends Fragment {
     }
 
     private void initControls(View v) {
-        btnAnnotate = (Button) v.findViewById(R.id.btnAnnotate);
+        btnAnnotate = (Button) v.findViewById(R.id.btnAnotate);
+        btnSearch = (Button) v.findViewById(R.id.btnSearch);
+
         edtKeyword = (EditText) v.findViewById(R.id.edtKeyword);
         edtLocation = (EditText) v.findViewById(R.id.edtLocation);
-        txtTest = (TextView) v.findViewById(R.id.txtAnnotatedText);
+        edtCategory = (EditText) v.findViewById(R.id.edtCategory);
+        edtLanguage = (EditText) v.findViewById(R.id.edtLanguage);
+
+        txtTest = (TextView) v.findViewById(R.id.edtAnotateText);
 
         annotated_Json_string = new String();
     }

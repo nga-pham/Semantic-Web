@@ -14,7 +14,7 @@ import semanticweb.uibk.at.eventfulwrapper.R;
  * Created by ngapham on 27.01.18.
  */
 
-public class RecognizeFragment extends Fragment {
+public class SearchResultFragment extends Fragment {
 
     //Widgets
     TextView txtResult;

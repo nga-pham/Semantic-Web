@@ -43,12 +43,11 @@ public class SearchAction extends Action {
         this.location = location;
     }
 
-    public JsonObject convertToJSON() {
+    public JsonObject convertToJsonObject() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add(CONTEXT_LABEL, CONTEXT_VALUE)
                 .add(TYPE_LABEL, TYPE_NAME);
 
-//        String url_template = this.getTarget().getUrlTemplate();
         if (null == this.getTarget().getUrlTemplate() || "".equalsIgnoreCase(this.getTarget().getUrlTemplate())) {
             // "target-input" : "required"
             builder.add(TARGET_LABEL + INPUT_LABEL, INPUT_VALUE);
@@ -83,7 +82,7 @@ public class SearchAction extends Action {
     // print
     @Override
     public String toString() {
-        return convertToJSON().toString();
+        return convertToJsonObject().toString();
     }
 
 }

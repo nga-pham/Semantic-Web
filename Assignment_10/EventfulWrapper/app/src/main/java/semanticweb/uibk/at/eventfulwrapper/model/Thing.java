@@ -10,8 +10,9 @@ import java.util.UUID;
 public class Thing {
 
     // Properties
-    UUID identifier;
+    String identifier;
     String name;
+    String description;
     String url;
     Action potentialAction;
 
@@ -21,11 +22,11 @@ public class Thing {
     protected static final String INPUT_LABEL = "-input";
 
     // Getter and Setter
-    public UUID getIdentifier() {
+    public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(UUID identifier) {
+    public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
 
@@ -35,6 +36,14 @@ public class Thing {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUrl() {

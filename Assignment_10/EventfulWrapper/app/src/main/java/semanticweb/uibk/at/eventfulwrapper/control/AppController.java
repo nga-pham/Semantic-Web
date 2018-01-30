@@ -22,7 +22,8 @@ public class AppController {
         mRequestQueue = getRequestQueue();
     }
 
-    // if an instance is already create , it will return it . if no instance was created , it will create a new one then reurn it
+    // if an instance is already create, it will return it.
+    // if no instance was created, it will create a new one then return it.
     public static synchronized AppController getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new AppController(context);
@@ -45,5 +46,10 @@ public class AppController {
         request.setTag(tag);
         getRequestQueue().add(request);
     }
+
+    /*public <T> void addToRequestQueue(Request<T> request) {
+        getRequestQueue().add(request);
+    }*/
+
 }
 

@@ -5,41 +5,145 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation = "vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KeyWord"/>
+
+            <EditText
+                android:id="@+id/edtKeyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="Keyword or Title"
+                android:inputType="text|textPersonName" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"/>
+
+            <EditText
+                android:id="@+id/edtLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="San Diego metro area"
+                android:inputType="text|textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"/>
+
+            <EditText
+                android:id="@+id/edtCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="Category"
+                android:inputType="text|textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Language"/>
+
+            <EditText
+                android:id="@+id/edtLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="English, German..."
+                android:inputType="text|textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_weight= "1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnAnotate"
+                android:layout_weight= "2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anotate"/>
+
+            <Space
+                android:layout_weight= "1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/edtKeyword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Keyword or Title"
-            android:inputType="text|textPersonName" />
+            android:id="@+id/edtAnotateText"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
 
-        <EditText
-            android:id="@+id/edtLocation"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="San Diego metro area"
-            android:inputType="text|textPersonName" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnAnnotate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Annotate" />
+            <Space
+                android:layout_weight= "1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_weight= "2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Go To Search Result"/>
+
+            <Space
+                android:layout_weight= "1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtAnnotatedText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Annotation describing Search Functionality" />
 
 </LinearLayout>
