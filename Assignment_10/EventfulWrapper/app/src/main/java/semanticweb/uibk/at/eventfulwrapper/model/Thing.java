@@ -1,7 +1,5 @@
 package semanticweb.uibk.at.eventfulwrapper.model;
 
-import java.util.UUID;
-
 /**
  * Created by ngapham on 26.01.18.
  * Base class for all models
@@ -20,6 +18,7 @@ public class Thing {
     protected static final String CONTEXT_VALUE = "http://schema.org";
     protected static final String INPUT_VALUE = "required";
     protected static final String INPUT_LABEL = "-input";
+    protected static final String TYPE_LABEL = "@type";
 
     // Getter and Setter
     public String getIdentifier() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
@@ -15,14 +16,14 @@ public class Website extends CreativeWork {
 
     // Properties
     String url;
-    List<Action> potentialAction;
+    List<SearchAction> potentialAction;
 
     protected static final String URL_LABEL = "url";
-    protected static final String URL_VALUE = "http://eventful.com";
+    protected static final String URL_VALUE = "http://api.eventful.com";
     protected static final String POTENTIAL_ACTION_LABEL = "potentialAction";
 
     public Website() {
-        potentialAction = new ArrayList<Action>();
+        potentialAction = new ArrayList<SearchAction>();
     }
 
     // Getter and Setter
@@ -31,7 +32,7 @@ public class Website extends CreativeWork {
         this.url = URL_VALUE;
     }
 
-    public void setPotentialAction(List<Action> potentialAction) {
+    public void setPotentialAction(List<SearchAction> potentialAction) {
         this.potentialAction = potentialAction;
     }
 
@@ -40,26 +41,28 @@ public class Website extends CreativeWork {
         return url;
     }
 
-    public List<Action> getPotentialAction() {
+    public List<SearchAction> getPotentialAction() {
         return potentialAction;
     }
 
-    public JsonObject convertToJSON() {
+    public JsonObject convertToJsonLD() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add(CONTEXT_LABEL, CONTEXT_VALUE)
                 .add(URL_LABEL, URL_VALUE);
+        builder.add(TYPE_LABEL, "WebSite");
 
         if (null == this.getPotentialAction()) {
             // "potentialAction" : "required"
             builder.add(POTENTIAL_ACTION_LABEL + INPUT_LABEL, INPUT_VALUE);
         } else {
-            String potential_action_str = "[";
-            for(Action item : potentialAction) {
-                potential_action_str += item.toString() + ',';
+            JsonObjectBuilder potential_action_builder = Json.createObjectBuilder();
+            JsonArrayBuilder new_array = Json.createArrayBuilder();
+            for (SearchAction item : this.getPotentialAction()) {
+                JsonObject current_action = item.convertToJsonLD();
+                new_array.add(current_action);
             }
-            // trim the last ','
-            potential_action_str = potential_action_str.substring(0, potential_action_str.lastIndexOf(',') - 1);
-            potential_action_str += ']';
+            builder.add(POTENTIAL_ACTION_LABEL, new_array);
+
         }
 
         JsonObject jsonSearchAction = builder.build();
@@ -70,6 +73,6 @@ public class Website extends CreativeWork {
     // print
     @Override
     public String toString() {
-        return convertToJSON().toString();
+        return convertToJsonLD().toString();
     }
 }

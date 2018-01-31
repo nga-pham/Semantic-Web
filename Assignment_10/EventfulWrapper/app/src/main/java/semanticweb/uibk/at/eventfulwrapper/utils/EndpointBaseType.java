@@ -7,7 +7,9 @@ package semanticweb.uibk.at.eventfulwrapper.utils;
 public enum EndpointBaseType {
     BASE_URL("http://api.eventful.com/json/"),
     EVENT("events/"),
-    SEARCH("search?");
+    USER("users/"),
+    SEARCH("search?"),
+    GET("get?");
 
     private String value;
 

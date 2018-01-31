@@ -14,7 +14,6 @@ public class Action extends Thing {
     EntryPoint target;
 
     protected static final String TYPE_NAME = "SearchAction";
-    protected static final String TYPE_LABEL = "@type";
     protected static final String AGENT_LABEL = "agent";
     protected static final String TARGET_LABEL = "target";
 
@@ -36,7 +35,7 @@ public class Action extends Thing {
     }
 
     // Convert into JSON Object
-    public JsonObject convertToJsonObject()
+    public JsonObject convertToJsonLD()
     {
         JsonObject jsonAction = Json.createObjectBuilder()
             .add(TYPE_LABEL, TYPE_NAME)
@@ -47,6 +46,6 @@ public class Action extends Thing {
     // print
     @Override
     public String toString() {
-        return convertToJsonObject().toString();
+        return convertToJsonLD().toString();
     }
 }

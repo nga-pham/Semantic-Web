@@ -22,19 +22,5 @@ public interface HttpClient {
      */
     InputStream get(String url) throws IOException;
 
-    /**
-     * Requests url with HTTP GET and returns result object as JSONArray
-     * @param url
-     * @return list of JSONObject as JSONArray
-     */
-    JsonArray getList(String url, String params) throws IOException;
-
-    /**
-     * Requests url with HTTP POST and retrieves result object as JSONObject
-     * @param url
-     * @param params
-     * @param object Requested object which can be sent as JSONObject
-     * @return retrieved result (object that has been modified, normally)
-     */
-    Map post(String url, Map<String, String> params, Map object);
+    InputStream post(String url) throws IOException;
 }

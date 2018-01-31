@@ -1,10 +1,13 @@
 package semanticweb.uibk.at.eventfulwrapper.control;
 
+import org.json.JSONArray;
+
 import java.io.InputStream;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 import semanticweb.uibk.at.eventfulwrapper.model.Event;
 
@@ -15,12 +18,17 @@ import semanticweb.uibk.at.eventfulwrapper.model.Event;
 public interface JsonConverter {
     JsonObject convertToJsonObject(InputStream inputStream);
 
-    JsonObject convertToJsonObject(InputStream inputStream, String params);
+    JsonObject convertToJsonObject(InputStream inputStream, String entity);
 
-    JsonArray convertToJsonArray(JsonObject jsonObject, String params);
+    JsonArray convertToJsonArray(JsonObject jsonObject, String entity);
 
-//    String convertToJson(Event event);
+    JsonObjectBuilder createBaseBuilder();
 
-    String convertToJsonLD (JsonObject target_object);
+    JsonObject convertEventToJsonLD(JsonObject event_object);
+
+    JsonObjectBuilder createSearchActionBaseBuilder();
+
+    JsonObject convertEventSearchAction(JsonArray events_array);
+
 }
 

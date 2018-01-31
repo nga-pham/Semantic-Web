@@ -6,7 +6,21 @@ package semanticweb.uibk.at.eventfulwrapper.utils;
  */
 
 public enum HttpMethod {
-    GET,
-    POST,
-    DELETE
+    GET("GET"),
+    POST("POST"),
+    DELETE("DELETE");
+
+    private String value;
+
+    HttpMethod(String value) {
+        this.value = value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

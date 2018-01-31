@@ -1,8 +1,12 @@
 package semanticweb.uibk.at.eventfulwrapper.model;
 
+import java.util.HashMap;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+
+import semanticweb.uibk.at.eventfulwrapper.control.EventfulImpl;
 
 /**
  * Created by ngapham on 26.01.18.
@@ -17,14 +21,15 @@ public class SearchAction extends Action {
 
     protected static final String KEYWORD_LABEL = "keyword";
     protected static final String LOCATION_LABEL = "location";
+    protected static final String QUERY_LABEL = "query-input";
 
     // Getter and Setter
     public String getQuery() {
         return query;
     }
 
-    public void setQuery(String query) {
-        this.query = query;
+    public void setQuery(HashMap<String, String> list_criteria) {
+        this.query = new EventfulImpl().createSearchQuery(list_criteria);
     }
 
     public String getKeyword() {
@@ -43,35 +48,25 @@ public class SearchAction extends Action {
         this.location = location;
     }
 
-    public JsonObject convertToJsonObject() {
+    public JsonObject convertToJsonLD() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
-        builder.add(CONTEXT_LABEL, CONTEXT_VALUE)
-                .add(TYPE_LABEL, TYPE_NAME);
 
-        if (null == this.getTarget().getUrlTemplate() || "".equalsIgnoreCase(this.getTarget().getUrlTemplate())) {
+        /*if (null == this.getTarget().getUrlTemplate() || "".equalsIgnoreCase(this.getTarget().getUrlTemplate())) {
             // "target-input" : "required"
             builder.add(TARGET_LABEL + INPUT_LABEL, INPUT_VALUE);
         } else {
             String url_template = this.getTarget().getUrlTemplate();
             // "target" : "url Template"
             builder.add(TARGET_LABEL, url_template);
-        }
+        }*/
 
-        if (null == this.getKeyword() || "".equalsIgnoreCase(this.getKeyword())) {
-            // "keyword-input" : "required"
-            builder.add(KEYWORD_LABEL + INPUT_LABEL, INPUT_VALUE);
-        } else {
-            // "keyword" : "literal value"
-            builder.add(KEYWORD_LABEL, this.getKeyword());
-        }
-
-        if (null == this.getLocation() || "".equalsIgnoreCase(this.getLocation())) {
-            // "location-input" : "required"
-            builder.add(LOCATION_LABEL+ INPUT_LABEL, INPUT_VALUE);
+        if (null == this.getQuery() || "".equalsIgnoreCase(this.getQuery())) {
+            // "query-input" : "required"
+            builder.add(QUERY_LABEL + INPUT_LABEL, INPUT_VALUE);
 
         } else {
-            // "location" : "literal value"
-            builder.add(LOCATION_LABEL, this.getLocation());
+            // "query" : "literal value"
+            builder.add(QUERY_LABEL, this.getQuery());
         }
 
         JsonObject jsonSearchAction = builder.build();
@@ -82,7 +77,7 @@ public class SearchAction extends Action {
     // print
     @Override
     public String toString() {
-        return convertToJsonObject().toString();
+        return convertToJsonLD().toString();
     }
 
 }
